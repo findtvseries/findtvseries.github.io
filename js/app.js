@@ -103,7 +103,7 @@ for (i = 0; i < listdata.shows.length; i++) {
 	
 		document.getElementById("finalwindow").innerHTML ='<div class="row">'+listdatalist+'</div>';
 		   }else{
-			   alert(listdata.error);
+			   
 		   document.getElementById("finalwindow").innerHTML ='<div class="row">'+datanotfoundtolist+'</div>';
 		   }
            
