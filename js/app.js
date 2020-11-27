@@ -35,6 +35,7 @@ var jsonlanguage=$.getJSON( languageapi);
 		document.getElementById("slogan2").innerHTML =datalanguage.slogan2;
 		document.getElementById("slogan3").innerHTML =datalanguage.slogan3;
 		document.getElementById("slogan4").innerHTML =datalanguage.slogan4;
+		document.title = datalanguage.slogan1;
 		var pagetion='<nav aria-label="Page navigation "><ul class="pagination justify-content-center">';
 	var previouspage=0;
 	var nextpage=Number(page)+1;
