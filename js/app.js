@@ -1,8 +1,9 @@
 
- page =localStorage.getItem("page");
-let params = (new URL(document.location)).searchParams;
-let listid = params.get("listid");
-alert(listid);
+
+ params = (new URL(document.location)).searchParams;
+ listid = params.get("listid");
+ page = params.get("page");
+
 const lang = navigator.languages && navigator.languages[0] || // Chrome / Firefox
                navigator.language ||   // All browsers
                navigator.userLanguage;
@@ -39,7 +40,7 @@ var jsonlanguage=$.getJSON( languageapi);
 	var nextpage=Number(page)+1;
 		if(page>=0){
 		previouspage=Number(page)-1;
-		pagetion+= '<li class="page-item"><button type="button"  class="btn btn-light" id="'+datalanguage.previous+'" onClick="pagereload(this.id)"   data="'+datalanguage.previous+'" >'+datalanguage.previous+'</button></li>';
+		pagetion+= '<li class="page-item"><button type="button"  class="btn btn-light" id="'+datalanguage.previous+'" onClick="pagereload(this.id)"    data="'+datalanguage.previous+'" >'+datalanguage.previous+'</button></li>';
 		}else{
 		pagetion+='<li class="page-item disabled"><button type="button"  class="btn btn-light" disabled tabindex="-1" aria-disabled="true" >'+datalanguage.previous+'</button></li>';
 		}
@@ -48,9 +49,9 @@ var jsonlanguage=$.getJSON( languageapi);
 		      var i;
 	for (i =Number(page)-3; i < Number(page)+3; i++) {
 		if(i==page){
-	pagetion+= '<li class="page-item " ><button type="button" class="btn btn-primary" onClick="pagereload(this.id)"   data="'+i+'">'+i+'<span class="sr-only">(current)</span></button></li>';
+	pagetion+= '<li class="page-item " ><button type="button" class="btn btn-primary" onClick="pagereload(this.id)"    data="'+i+'">'+i+'<span class="sr-only">(current)</span></button></li>';
 		}else{
-		pagetion+= '<li class="page-item"><button type="button"  class="btn btn-light"  onClick="pagereload(this.id)"  id="'+i+'" >'+i+'</button></li>';
+		pagetion+= '<li class="page-item"><button type="button"  class="btn btn-light"  onClick="pagereload(this.id)"   id="'+i+'" >'+i+'</button></li>';
 		}
 		}
 		}else{
@@ -58,11 +59,11 @@ var jsonlanguage=$.getJSON( languageapi);
 			if(i==page){
 	pagetion+= '<li class="page-item " ><button type="button" class="btn btn-primary" onClick="pagereload(this.id)"   id="'+i+'">'+i+'</button></li>';
 		}else{
-		pagetion+= '<li class="page-item"><button type="button"  class="btn btn-light"  onClick="pagereload(this.id)"  id="'+i+'" >'+i+'</button></li>';
+		pagetion+= '<li class="page-item"><button type="button"  class="btn btn-light"  onClick="pagereload(this.id)"    id="'+i+'" >'+i+'</button></li>';
 		}
 		}
 		}
-		pagetion+= '<li class="page-item"><button type="button"  class="btn btn-light"  onClick="pagereload(this.id)" id="'+datalanguage.next+'" >'+datalanguage.next+'</a></li>';
+		pagetion+= '<li class="page-item"><button type="button"  class="btn btn-light"  onClick="pagereload(this.id)"   id="'+datalanguage.next+'" >'+datalanguage.next+'</a></li>';
 		
 		pagetion+='</ul></nav>';
 		document.getElementById("pagination").innerHTML =pagetion;
@@ -73,8 +74,43 @@ var jsonlanguage=$.getJSON( languageapi);
 }
 );
 (function Listidload(){
-	if(window.list_id!=null){
-	alert(window.list_id);
+	if(window.listid!=null){
+		var datanotfoundtolist;
+		var datalistid;
+		 var languageapi ="https://ihaletr.com/findtvseries/language.php?lang="+language;
+var jsonlanguage=$.getJSON( languageapi); 
+	jsonlanguage.done(function( datalanguage ) {
+		datanotfoundtolist=datalanguage.notfoundtolist;
+		datalistid=datalanguage.listid;
+	});
+		var listdatalist='<div class="panel-primary" ><div><h1>'+datalistid+':'+btoa(window.listid)+'</h1></div><div class="row">';
+		const endPoint = "https://ihaletr.com/findtvseries/listview.php";
+      const sendlistdata = {
+        userid:"778746565e64456",
+		lang:language,
+		listid:window.listid,
+		page:window.page
+      };
+	 $.post(endPoint, sendlistdata, function (glistdata, status) {
+		  if (status == "success") {
+			 listdata=JSON.parse(glistdata);
+           if(listdata.error!="notfoundtolist"){
+		  
+      var i;
+for (i = 0; i < listdata.shows.length; i++) {
+  listdatalist +='<div class="col-xs-12 col-sm-6 col-md-4"><div class="image-flip" > <div class="mainflip flip-0"><div class="frontside"><div class="card"> <div class="card-body text-center"><p><img class=" img-fluid" src="'+listdata.shows[i].poster+'" alt="'+listdata.shows[i].title+'"></p><h4 class="card-title">'+listdata.shows[i].title +'</h4> </div></div> </div><div class="backside"><div class="card"><div class="card-body text-center mt-4"><h4 class="card-title">'+listdata.shows[i].title+'</h4><p class="card-text"><div class="row"><div class="col-6 col-md-4">'+listdata.langdata.point+':</div><div class="col-6 col-md-8"><div class="progress"><div class="progress-bar progress-bar-dange" role="progressbar" aria-valuenow="'+listdata.shows[i].rate+'"aria-valuemin="0" aria-valuemax="100" style="width:'+listdata.shows[i].rate+'%">'+listdata.shows[i].rate+'</div></div></div></div><div class="row"><div class="col-6 col-md-4">'+listdata.langdata.year+':</div><div class="col-12 col-md-8">'+listdata.shows[i].year+'</div></div><div class="row"><div class="col-6 col-md-4">'+listdata.langdata.language+':</div><div class="col-12 col-md-8">'+listdata.shows[i].language+'</div></div><div class="row"><div class="col-6 col-md-4">'+listdata.langdata.genre+':</div><div class="col-12 col-md-8">'+listdata.shows[i].genre+'</div></div><div class="row"><div class="col-6 col-md-4">'+listdata.langdata.cast+':</div><div class="col-12 col-md-8">'+listdata.shows[i].cast+'</div></div><div class="row"><div class="col-6 col-md-4">'+listdata.langdata.country+':</div><div class="col-12 col-md-8">'+listdata.shows[i].country+'</div></div></p>  </div></div></div></div></div></div>';
+} 
+	
+		document.getElementById("finalwindow").innerHTML ='<div class="row">'+listdatalist+'</div>';
+		   }else{
+			   alert(listdata.error);
+		   document.getElementById("finalwindow").innerHTML ='<div class="row">'+datanotfoundtolist+'</div>';
+		   }
+           
+          } else {
+            console.log("Error ${status}");
+          }
+	   });
 	}
 })();
 (function Badlistload() {
