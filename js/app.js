@@ -1,5 +1,8 @@
 
  page =localStorage.getItem("page");
+let params = (new URL(document.location)).searchParams;
+let listid = params.get("listid");
+alert(listid);
 const lang = navigator.languages && navigator.languages[0] || // Chrome / Firefox
                navigator.language ||   // All browsers
                navigator.userLanguage;
@@ -18,7 +21,8 @@ $(document).ready(function(){
 });
 
 
-$(document).ready(function pagetions(){		
+$(document).ready(
+	function pagetions(){		
  var languageapi ="https://ihaletr.com/findtvseries/language.php?lang="+language;
 var jsonlanguage=$.getJSON( languageapi); 
 	jsonlanguage.done(function( datalanguage ) {
@@ -66,8 +70,13 @@ var jsonlanguage=$.getJSON( languageapi);
 	});
 
 
-});
-
+}
+);
+(function Listidload(){
+	if(window.list_id!=null){
+	alert(window.list_id);
+	}
+})();
 (function Badlistload() {
 var badlist='<div class="row">';
   var badapi = "https://ihaletr.com/findtvseries/list.php?desc=ASC&orderby=rate&page="+window.page+"&lang="+language;
