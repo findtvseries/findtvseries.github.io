@@ -84,7 +84,7 @@ var jsonlanguage=$.getJSON( languageapi);
 		datanotfoundtolist=datalanguage.notfoundtolist;
 		datalistid=datalanguage.listid;
 	});
-		var listdatalist='<div class="panel-primary" ><div><h1>'+datalistid+':'+btoa(window.listid)+'</h1></div><div class="row">';
+		var listdatalist='<div class="panel-primary" ><div><h1>LIST ID:'+btoa(window.listid)+'</h1></div><div class="row">';
 		const endPoint = "https://ihaletr.com/findtvseries/listview.php";
       const sendlistdata = {
         userid:"778746565e64456",
