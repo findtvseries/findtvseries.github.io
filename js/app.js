@@ -2,7 +2,10 @@
 
  params = (new URL(document.location)).searchParams;
  listid = params.get("listid");
- page = params.get("page");
+const page= localStorage.getItem("page");
+if(page==null){
+page=1;
+}
 
 const lang = navigator.languages && navigator.languages[0] || // Chrome / Firefox
                navigator.language ||   // All browsers
