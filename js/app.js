@@ -27,9 +27,11 @@ $(document).ready(
  var languageapi ="https://ihaletr.com/findtvseries/language.php?lang="+language;
 var jsonlanguage=$.getJSON( languageapi); 
 	jsonlanguage.done(function( datalanguage ) {
+		if(window.listid==null){
 		document.getElementById("bestcontent").innerHTML =datalanguage.best;
 		document.getElementById("worstcontent").innerHTML =datalanguage.bad;
 		document.getElementById("newcontent").innerHTML =datalanguage.new;
+		}
 		document.getElementById("backtotop").innerHTML =datalanguage.backtotop;
 		document.getElementById("slogan1").innerHTML =datalanguage.slogan1;
 		document.getElementById("slogan2").innerHTML =datalanguage.slogan2;
@@ -67,7 +69,9 @@ var jsonlanguage=$.getJSON( languageapi);
 		pagetion+= '<li class="page-item"><button type="button"  class="btn btn-light"  onClick="pagereload(this.id)"   id="'+datalanguage.next+'" >'+datalanguage.next+'</a></li>';
 		
 		pagetion+='</ul></nav>';
+		if(window.listid==null){
 		document.getElementById("pagination").innerHTML =pagetion;
+		}
 		
 	});
 
@@ -126,8 +130,9 @@ var badlist='<div class="row">';
 for (i = 0; i < baddata.shows.length; i++) {
   badlist +='<div class="col-xs-12 col-sm-6 col-md-4"><div class="image-flip" > <div class="mainflip flip-0"><div class="frontside"><div class="card"> <div class="card-body text-center"><p><img class=" img-fluid" src="'+baddata.shows[i].poster+'" alt="'+baddata.shows[i].title+'"></p><h4 class="card-title">'+baddata.shows[i].title +'</h4> </div></div> </div><div class="backside"><div class="card"><div class="card-body text-center mt-4"><h4 class="card-title">'+baddata.shows[i].title+'</h4><p class="card-text"><div class="row"><div class="col-6 col-md-4">'+baddata.langdata.point+':</div><div class="col-6 col-md-8"><div class="progress"><div class="progress-bar progress-bar-dange" role="progressbar" aria-valuenow="'+baddata.shows[i].rate+'"aria-valuemin="0" aria-valuemax="100" style="width:'+baddata.shows[i].rate+'%">'+baddata.shows[i].rate+'</div></div></div></div><div class="row"><div class="col-6 col-md-4">'+baddata.langdata.year+':</div><div class="col-12 col-md-8">'+baddata.shows[i].year+'</div></div><div class="row"><div class="col-6 col-md-4">'+baddata.langdata.language+':</div><div class="col-12 col-md-8">'+baddata.shows[i].language+'</div></div><div class="row"><div class="col-6 col-md-4">'+baddata.langdata.genre+':</div><div class="col-12 col-md-8">'+baddata.shows[i].genre+'</div></div><div class="row"><div class="col-6 col-md-4">'+baddata.langdata.cast+':</div><div class="col-12 col-md-8">'+baddata.shows[i].cast+'</div></div><div class="row"><div class="col-6 col-md-4">'+baddata.langdata.country+':</div><div class="col-12 col-md-8">'+baddata.shows[i].country+'</div></div></p>  </div></div></div></div></div></div>';
 } 
-	
+	if(window.listid==null){
 		document.getElementById("bad").innerHTML ='<div class="row">'+badlist+'</div>';
+	}
 
     });
 
@@ -145,8 +150,9 @@ var bestlist='<div class="row">';
 for (i = 0; i < bestdata.shows.length; i++) {
   bestlist +='<div class="col-xs-12 col-sm-6 col-md-4"><div class="image-flip" > <div class="mainflip flip-0"><div class="frontside"><div class="card"> <div class="card-body text-center"><p><img class=" img-fluid" src="'+bestdata.shows[i].poster+'" alt="'+bestdata.shows[i].title+'"></p><h4 class="card-title">'+bestdata.shows[i].title +'</h4> </div></div> </div><div class="backside"><div class="card"><div class="card-body text-center mt-4"><h4 class="card-title">'+bestdata.shows[i].title+'</h4><p class="card-text"><div class="row"><div class="col-6 col-md-4">'+bestdata.langdata.point+':</div><div class="col-6 col-md-8"><div class="progress"><div class="progress-bar progress-bar-dange" role="progressbar" aria-valuenow="'+bestdata.shows[i].rate+'"aria-valuemin="0" aria-valuemax="100" style="width:'+bestdata.shows[i].rate+'%">'+bestdata.shows[i].rate+'</div></div></div></div><div class="row"><div class="col-6 col-md-4">'+bestdata.langdata.year+':</div><div class="col-12 col-md-8">'+bestdata.shows[i].year+'</div></div><div class="row"><div class="col-6 col-md-4">'+bestdata.langdata.language+':</div><div class="col-12 col-md-8">'+bestdata.shows[i].language+'</div></div><div class="row"><div class="col-6 col-md-4">'+bestdata.langdata.genre+':</div><div class="col-12 col-md-8">'+bestdata.shows[i].genre+'</div></div><div class="row"><div class="col-6 col-md-4">'+bestdata.langdata.cast+':</div><div class="col-12 col-md-8">'+bestdata.shows[i].cast+'</div></div><div class="row"><div class="col-6 col-md-4">'+bestdata.langdata.country+':</div><div class="col-12 col-md-8">'+bestdata.shows[i].country+'</div></div></p>  </div></div></div></div></div></div>';
 } 
-
+if(window.listid==null){
 		document.getElementById("best").innerHTML ='<div class="row">'+bestlist+'</div>';
+}
 
     });
 
@@ -166,8 +172,9 @@ for (i = 0; i < data.shows.length; i++) {
  
 	newlist +='<div class="col-xs-12 col-sm-6 col-md-4"><div class="image-flip" > <div class="mainflip flip-0"><div class="frontside"><div class="card"> <div class="card-body text-center"><p><img class=" img-fluid" src="'+data.shows[i].poster+'" alt="'+data.shows[i].title+'"></p><h4 class="card-title">'+data.shows[i].title +'</h4> </div></div> </div><div class="backside"><div class="card"><div class="card-body text-center mt-4"><h4 class="card-title">'+data.shows[i].title+'</h4><p class="card-text"><div class="row"><div class="col-6 col-md-4">'+data.langdata.point+':</div><div class="col-6 col-md-8"><div class="progress"><div class="progress-bar progress-bar-dange" role="progressbar" aria-valuenow="'+data.shows[i].rate+'"aria-valuemin="0" aria-valuemax="100" style="width:'+data.shows[i].rate+'%">'+data.shows[i].rate+'</div></div></div></div><div class="row"><div class="col-6 col-md-4">'+data.langdata.year+':</div><div class="col-12 col-md-8">'+data.shows[i].year+'</div></div><div class="row"><div class="col-6 col-md-4">'+data.langdata.language+':</div><div class="col-12 col-md-8">'+data.shows[i].language+'</div></div><div class="row"><div class="col-6 col-md-4">'+data.langdata.genre+':</div><div class="col-12 col-md-8">'+data.shows[i].genre+'</div></div><div class="row"><div class="col-6 col-md-4">'+data.langdata.cast+':</div><div class="col-12 col-md-8">'+data.shows[i].cast+'</div></div><div class="row"><div class="col-6 col-md-4">'+data.langdata.country+':</div><div class="col-12 col-md-8">'+data.shows[i].country+'</div></div></p>  </div></div></div></div></div></div>';
 } 
-	
+	if(window.listid==null){
 		document.getElementById("new").innerHTML ='<div class="row">'+newlist+'</div>';
+	}
 
     });
 
