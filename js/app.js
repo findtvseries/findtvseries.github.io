@@ -69,9 +69,9 @@ var jsonlanguage=$.getJSON( languageapi);
 		pagetion+= '<li class="page-item"><button type="button"  class="btn btn-light"  onClick="pagereload(this.id)"   id="'+datalanguage.next+'" >'+datalanguage.next+'</a></li>';
 		
 		pagetion+='</ul></nav>';
-		if(window.listid==null){
+	
 		document.getElementById("pagination").innerHTML =pagetion;
-		}
+	
 		
 	});
 
