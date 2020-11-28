@@ -1,8 +1,6 @@
-
-
  params = (new URL(document.location)).searchParams;
  listid = params.get("listid");
-const page= localStorage.getItem("page");
+ page= localStorage.getItem("page");
 if(page==null){
 page=1;
 }
